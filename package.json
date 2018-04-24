@@ -1,0 +1,40 @@
+{
+  "name": "ts-framework-sockets",
+  "version": "1.0.0-alpha.1",
+  "description": "A minimalistic web framework for TS",
+  "author": "Luis Brito <luis@nxtep.io>",
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "typings": "./dist/types/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nxtep-io/ts-framework-validation.git"
+  },
+  "scripts": {
+    "build": "yarn run -s clean && tsc",
+    "clean": "rimraf ./dist",
+    "test": "yarn run -s lint && jest --config jest.json",
+    "lint": "tslint --project tsconfig.json",
+    "precommit": "yarn test"
+  },
+  "dependencies": {
+    "ts-framework": "git+https://github.com/devnup/ts-framework.git#master"
+  },
+  "devDependencies": {
+    "@types/jest": "^21.1.2",
+    "@types/supertest": "^2.0.3",
+    "husky": "^0.14.3",
+    "jest": "^21.2.1",
+    "nodemon": "^1.12.1",
+    "rimraf": "^2.6.2",
+    "supertest": "^3.0.0",
+    "ts-jest": "^21.1.2",
+    "ts-node": "^3.3.0",
+    "tslint": "^5.9.1",
+    "tslint-config-airbnb": "^5.5.0",
+    "typescript": "^2.5.3"
+  }
+}
