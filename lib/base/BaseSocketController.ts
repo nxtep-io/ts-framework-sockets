@@ -14,7 +14,7 @@ export default class BaseSocketController {
   public static bindSocket(socket: SocketIO.Socket) {
     for (const action in this.methods) {
       if (this.methods.hasOwnProperty(action)) {
-        socket.on(action, this.methods[action].bind(socket));
+        socket.on(action, data => this.methods[action](socket, data));
       }
     }
   }
