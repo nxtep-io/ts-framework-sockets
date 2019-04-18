@@ -1,11 +1,10 @@
-/// <reference types="socket.io" />
 import * as SocketIO from 'socket.io';
 /**
  * The base class for creating Socket Controllers, collection of socket Listeners.
  */
-export default class BaseSocketController {
+export declare class BaseSocketController {
     protected static methods: {
-        [key: string]: (...args) => any;
+        [key: string]: (...args: any[]) => any;
     };
     /**
      * Binds a Socket instance to the controller methods.
