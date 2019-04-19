@@ -15,6 +15,8 @@
   },
   "scripts": {
     "build": "yarn run -s clean && tsc",
+    "docs": "./scripts/docs.sh",
+    "predocs": "rimraf ./docs",
     "clean": "rimraf ./dist",
     "test": "yarn run -s lint && jest --config jest.json",
     "lint": "tslint --project tsconfig.json",
@@ -40,12 +42,14 @@
     "husky": "^0.14.3",
     "jest": "^24.7.1",
     "nodemon": "^1.18.11",
+    "nxtep-typedoc-theme": "nxtep-io/nxtep-typedoc-theme",
     "rimraf": "^2.6.2",
     "supertest": "^3.0.0",
     "ts-jest": "^24.0.2",
     "ts-node": "^3.3.0",
     "tslint": "^5.16.0",
     "tslint-config-airbnb": "^5.11.1",
+    "typedoc": "^0.14.2",
     "typescript": "^3.4.3"
   }
 }
