@@ -20,5 +20,5 @@ export declare class BaseSocketController {
      * @param eventName The socket event name
      * @param eventName The socket action listener
      */
-    protected static bindEvent(eventName: any, action: any): void;
+    protected static bindEvent(eventName: string, action: (...args: any[]) => void): void;
 }

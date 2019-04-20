@@ -2,9 +2,11 @@
 import * as Redis from 'redis';
 import { LoggerInstance } from 'ts-framework-common';
 import { BaseAuthorizationHandler } from './base/BaseAuthorizationHandler';
+import { BaseSocketController } from 'base/BaseSocketController';
 export interface SocketServerOptions {
     redis?: Redis.RedisClient;
     logger?: LoggerInstance;
+    listeners?: (typeof BaseSocketController)[];
 }
 export declare class SocketServer {
     protected options: SocketServerOptions;
