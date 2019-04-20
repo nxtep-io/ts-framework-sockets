@@ -1,4 +1,5 @@
 import * as SocketIO from 'socket.io';
+import { BaseError } from 'ts-framework-common';
 
 /**
  * The base class for creating Socket Controllers, collection of socket Listeners.
@@ -13,9 +14,7 @@ export class BaseSocketController {
    */
   public static bindSocket(socket: SocketIO.Socket) {
     for (const action in this.methods) {
-      if (this.methods.hasOwnProperty(action)) {
-        socket.on(action, data => this.methods[action](socket, data));
-      }
+      socket.on(action, (...args) => this.methods[action](socket, ...args));
     }
   }
 
@@ -27,8 +26,13 @@ export class BaseSocketController {
    * @param eventName The socket event name
    * @param eventName The socket action listener
    */
-  protected static bindEvent(eventName, action) {
+  protected static bindEvent(eventName: string, action: (...args: any[]) => void) {
     this.methods = this.methods || {};
+
+    if (this.methods[eventName]) {
+      throw new BaseError('Event is already bound in this controller for another listener');
+    }
+
     this.methods[eventName] = action.bind(this);
   }
 }

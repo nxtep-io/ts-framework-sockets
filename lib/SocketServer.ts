@@ -3,10 +3,12 @@ import * as SockerRedisAdapter from 'socket.io-redis';
 import * as SocketIOWildcard from 'socketio-wildcard';
 import { Logger, LoggerInstance } from 'ts-framework-common';
 import { BaseAuthorizationHandler } from './base/BaseAuthorizationHandler';
+import { BaseSocketController } from 'base/BaseSocketController';
 
 export interface SocketServerOptions {
   redis?: Redis.RedisClient;
   logger?: LoggerInstance;
+  listeners?: (typeof BaseSocketController)[];
 }
 
 export class SocketServer {
@@ -16,6 +18,7 @@ export class SocketServer {
   public constructor(io: SocketIO.Server, protected options: SocketServerOptions = {}) {
     this.io = io;
     this.logger = options.logger || Logger.getInstance();
+    this.logger.debug('Socket service bound to Socket.io instance');
 
     // Prepare wildcard adapter
     this.io.use(SocketIOWildcard());
@@ -27,7 +30,7 @@ export class SocketServer {
     }
 
     // Bind event listeners
-    this.io.on('connect', this.onConnect.bind(this));
+    this.io.on('connection', this.onConnect.bind(this));
   }
 
   /**
@@ -38,6 +41,12 @@ export class SocketServer {
     this.logger.silly('Socket client connected', info);
     socket.on('error', this.onError.bind(this, socket));
     socket.on('disconnect', this.onDisconnect.bind(this, socket));
+
+    // Bind all listeners to socket instance
+    for (const listener of this.options.listeners || []) {
+      this.logger.silly(`Biding socket client to "${listener.name}" listener`, info);
+      listener.bindSocket(socket);
+    }
   }
 
   /**

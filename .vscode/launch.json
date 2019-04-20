@@ -10,6 +10,7 @@
       "name": "Debug Tests",
       "program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
       "cwd": "${workspaceRoot}",
+      "port": 9229,
       "sourceMaps": true,
       "args": [
         "--config",

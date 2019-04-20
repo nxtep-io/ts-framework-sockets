@@ -1,11 +1,12 @@
+import * as Redis from 'redis-mock';
 import * as SocketIO from 'socket.io';
 import * as SocketIOClient from 'socket.io-client';
 import { BaseSocketController, Listener, SocketServer } from '../lib';
 
 const HOST = process.env.HOST || 'http://localhost';
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3002;
 
-describe('lib.Socket', () => {
+describe('lib.sockets.Redis', () => {
   let io: SocketIO.Server;
   let server: SocketServer;
   let socket: SocketIOClient.Socket;
@@ -19,8 +20,13 @@ describe('lib.Socket', () => {
 
   beforeEach(async () => {
     io = SocketIO(PORT);
-    server = new SocketServer(io, { listeners: [TestSocketController] });
     socket = SocketIOClient(`${HOST}:${PORT}`);
+
+    server = new SocketServer(io, {
+      listeners: [TestSocketController],
+      redis: Redis.createClient(),
+    });
+
     await new Promise<void>(resolve => socket.on('connect', () => resolve()));
   });
 

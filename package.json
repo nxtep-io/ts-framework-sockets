@@ -43,6 +43,7 @@
     "jest": "^24.7.1",
     "nodemon": "^1.18.11",
     "nxtep-typedoc-theme": "nxtep-io/nxtep-typedoc-theme",
+    "redis-mock": "^0.43.0",
     "rimraf": "^2.6.2",
     "supertest": "^3.0.0",
     "ts-jest": "^24.0.2",

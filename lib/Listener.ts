@@ -7,6 +7,6 @@
 // tslint:disable-next-line:function-name
 export function Listener(eventName: string) {
   return function (target, propertyKey: string, descriptor: PropertyDescriptor) {
-    target.constructor.bindEvent(eventName, descriptor.value);
+    target.bindEvent(eventName, descriptor.value);
   };
 }
